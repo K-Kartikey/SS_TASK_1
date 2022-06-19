@@ -1,20 +1,16 @@
-"use strict";
-// const express=require ("express");
-// import express,{Express, Request,Response} from 'express';
-// const bodyParser=require("body-parser");
-// const app:Express=express();
-exports.__esModule = true;
-// app.get('/',(req:Request,res:Response)=>{
-//     res.send("hello");
-// });
-// app.listen(3000,()=>{
-//     console.log("Server is running on local host");
-// });
-var express_1 = require("express");
-var app = (0, express_1["default"])();
-app.get('/', function (req, res) {
-    res.send('Well done!');
+const express = require('express');
+
+const app = express();
+
+
+app.get('/', (req, res) => {
+  res.json({
+    Name : 'KK',
+    Contact : 9711566660,
+    Email_Id : 'kk@gmail.com'
 });
-app.listen(3000, function () {
-    console.log('The application is listening on port 3000!');
+});
+
+app.listen(3000, () => {
+  console.log(`[server]: Server is running at https://localhost:3000}`);
 });

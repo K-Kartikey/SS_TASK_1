@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/K-Kartikey/SS_TASK_1.git"
   },
+  "type": "commonjs",
   "author": "",
   "license": "ISC",
   "bugs": {
