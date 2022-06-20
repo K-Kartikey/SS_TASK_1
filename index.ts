@@ -1,6 +1,8 @@
 import * as express from 'express';
+// import express from 'express';
 import * as mysql2 from 'mysql2';
 import * as bodyparser from 'body-parser';
+// import express, { NextFunction, Request, Response } from "express";
 
 const app = express();
 app.use(express.json());
@@ -44,11 +46,14 @@ app.get('/books',(req,res)=>{
 
 
 app.post('/bookcreate',(req,res)=>{
-  const BookName:string=req.body.BookName;
-  const Author:string=req.body.Author;
-  const Genre:string=req.body.Genre;
-  const Ratings:number=req.body.Ratings;
-  mysqlconnection.query("INSERT INTO book SET ?",{BookName,Author,Genre,Ratings},(err,row,fields)=>{
+  // console.log(req.body);
+  const response:object=req.body;
+  console.log(response);
+//   const BookName:string=req.body.BookName;
+//   const Author:string=req.body.Author;
+//   const Genre:string=req.body.Genre;
+//   const Ratings:number=req.body.Ratings;
+  mysqlconnection.query("INSERT INTO book SET ?",response,(err,row,fields)=>{
     if(!err)
     {
       console.log("Created Book");
@@ -60,17 +65,19 @@ app.post('/bookcreate',(req,res)=>{
       console.log(err);
     }
   })
-  console.log(BookName,Author,Genre,Ratings);
+  // console.log(BookName,Author,Genre,Ratings);
   res.send("New Record Added");
 });
 
 app.put('/bookupdate',(req,res)=>{
-  const BookID:number=req.body.BookID;
-  const BookName:string=req.body.BookName;
-  const Author:string=req.body.Author;
-  const Genre:string=req.body.Genre;
-  const Ratings:number=req.body.Ratings;
-  mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?",[{BookName,Author,Genre,Ratings},BookID],(err,row,fields)=>{
+  
+  // const {BookID, BookName, Author, Genre, Ratings} = req.body as {BookID: number; BookName: string, Author:string, Genre:string,Ratings:number};
+  const response:object=req.body;
+  const bid:number=req.body.BookID;
+  // console.log(response);
+  // console.log(bid);
+
+  mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?",[response,bid],(err,row,fields)=>{
 
     if(!err)
     {
@@ -86,9 +93,38 @@ app.put('/bookupdate',(req,res)=>{
   res.send("Updated the Book record.");
 })
 
+
+app.patch('/bookupdate',(req,res)=>{
+  
+  // const {BookID, BookName, Author, Genre, Ratings} = req.body as {BookID: number; BookName: string, Author:string, Genre:string,Ratings:number};
+  const response:object=req.body;
+  const bid:number=req.body.BookID;
+  console.log(response);
+  // console.log(bid);
+
+  mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?",[response,bid],(err,row,fields)=>{
+
+    if(!err)
+    {
+      console.log("Updated Book");
+
+    }
+    else
+    {
+      console.log("Error in creating record");
+      console.log(err);
+    }
+  })
+  res.send("Updated the Book record.");
+})
+
+
+
+
+
 app.delete('/deletebook',(req,res)=>{
   const BookID:number=req.body.BookID;
-  mysqlconnection.query("DELETE from book WHERE BookId = ?",[BookID],(err,row,fields)=>{
+  mysqlconnection.query("DELETE from book WHERE BookId = ?",BookID,(err,row,fields)=>{
 
     if(!err)
     {
