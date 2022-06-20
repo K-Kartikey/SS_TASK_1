@@ -1,8 +1,10 @@
 "use strict";
 exports.__esModule = true;
 var express = require("express");
+// import express from 'express';
 var mysql2 = require("mysql2");
 var bodyparser = require("body-parser");
+// import express, { NextFunction, Request, Response } from "express";
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,11 +38,14 @@ app.get('/books', function (req, res) {
     });
 });
 app.post('/bookcreate', function (req, res) {
-    var BookName = req.body.BookName;
-    var Author = req.body.Author;
-    var Genre = req.body.Genre;
-    var Ratings = req.body.Ratings;
-    mysqlconnection.query("INSERT INTO book SET ?", { BookName: BookName, Author: Author, Genre: Genre, Ratings: Ratings }, function (err, row, fields) {
+    // console.log(req.body);
+    var response = req.body;
+    console.log(response);
+    //   const BookName:string=req.body.BookName;
+    //   const Author:string=req.body.Author;
+    //   const Genre:string=req.body.Genre;
+    //   const Ratings:number=req.body.Ratings;
+    mysqlconnection.query("INSERT INTO book SET ?", response, function (err, row, fields) {
         if (!err) {
             console.log("Created Book");
         }
@@ -49,16 +54,33 @@ app.post('/bookcreate', function (req, res) {
             console.log(err);
         }
     });
-    console.log(BookName, Author, Genre, Ratings);
+    // console.log(BookName,Author,Genre,Ratings);
     res.send("New Record Added");
 });
 app.put('/bookupdate', function (req, res) {
-    var BookID = req.body.BookID;
-    var BookName = req.body.BookName;
-    var Author = req.body.Author;
-    var Genre = req.body.Genre;
-    var Ratings = req.body.Ratings;
-    mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?", [{ BookName: BookName, Author: Author, Genre: Genre, Ratings: Ratings }, BookID], function (err, row, fields) {
+    // const {BookID, BookName, Author, Genre, Ratings} = req.body as {BookID: number; BookName: string, Author:string, Genre:string,Ratings:number};
+    var response = req.body;
+    var bid = req.body.BookID;
+    // console.log(response);
+    // console.log(bid);
+    mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?", [response, bid], function (err, row, fields) {
+        if (!err) {
+            console.log("Updated Book");
+        }
+        else {
+            console.log("Error in creating record");
+            console.log(err);
+        }
+    });
+    res.send("Updated the Book record.");
+});
+app.patch('/bookupdate', function (req, res) {
+    // const {BookID, BookName, Author, Genre, Ratings} = req.body as {BookID: number; BookName: string, Author:string, Genre:string,Ratings:number};
+    var response = req.body;
+    var bid = req.body.BookID;
+    console.log(response);
+    // console.log(bid);
+    mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?", [response, bid], function (err, row, fields) {
         if (!err) {
             console.log("Updated Book");
         }
@@ -71,7 +93,7 @@ app.put('/bookupdate', function (req, res) {
 });
 app["delete"]('/deletebook', function (req, res) {
     var BookID = req.body.BookID;
-    mysqlconnection.query("DELETE from book WHERE BookId = ?", [BookID], function (err, row, fields) {
+    mysqlconnection.query("DELETE from book WHERE BookId = ?", BookID, function (err, row, fields) {
         if (!err) {
             console.log("Deleted Book");
         }
