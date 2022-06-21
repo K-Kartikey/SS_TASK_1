@@ -64,14 +64,15 @@ app.post('/bookcreate', function (req, res) {
         mysqlconnection.query("INSERT INTO book SET ?", response, function (err, row, fields) {
             if (!err) {
                 console.log("Created Book");
+                res.send("New Record Added");
             }
             else {
                 console.log("Error in creating record");
                 console.log(err);
+                res.send(err);
             }
         });
         // console.log(BookName,Author,Genre,Ratings);
-        res.send("New Record Added");
     }
 });
 app.put('/bookupdate', function (req, res) {
@@ -94,13 +95,14 @@ app.put('/bookupdate', function (req, res) {
         mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?", [response, bookId], function (err, row, fields) {
             if (!err) {
                 console.log("Updated Book");
+                res.send("Updated the Book record.");
             }
             else {
                 console.log("Error in creating record");
                 console.log(err);
+                res.send(err);
             }
         });
-        res.send("Updated the Book record.");
     }
 });
 app.patch('/bookupdate', function (req, res) {
@@ -109,7 +111,7 @@ app.patch('/bookupdate', function (req, res) {
     var bookId = req.body.BookID;
     // console.log(response);
     // console.log(bid);
-    if (!bookId || JSON.stringify(response) === '{}') {
+    if (!bookId || JSON.stringify(response) === '{}' || typeof (bookId) !== 'number') {
         res.send({
             Error: "Error in Patch Request.",
             Message: "Please provide Book ID and other details"
@@ -123,18 +125,19 @@ app.patch('/bookupdate', function (req, res) {
         mysqlconnection.query("UPDATE book SET ? WHERE BookId = ?", [response, bookId], function (err, row, fields) {
             if (!err) {
                 console.log("Updated Book");
+                res.send("Updated the Book record.");
             }
             else {
                 console.log("Error in creating record");
                 console.log(err);
+                res.send(err);
             }
         });
-        res.send("Updated the Book record.");
     }
 });
 app["delete"]('/deletebook', function (req, res) {
     var bookId = req.body.BookID;
-    if (!bookId) {
+    if (!bookId || typeof (bookId) !== 'number') {
         res.send({
             Error: "Error in DELETE Request.",
             Message: "Please provide Book ID"
@@ -148,13 +151,14 @@ app["delete"]('/deletebook', function (req, res) {
         mysqlconnection.query("DELETE from book WHERE BookId = ?", bookId, function (err, row, fields) {
             if (!err) {
                 console.log("Deleted Book");
+                res.send("Deleted the Book");
             }
             else {
                 console.log("Error in creating record");
                 console.log(err);
+                res.send(err);
             }
         });
-        res.send("Deleted the Book");
     }
 });
 app.listen(3000, function () {
