@@ -111,7 +111,7 @@ app.patch('/bookupdate', function (req, res) {
     var bookId = req.body.BookID;
     // console.log(response);
     // console.log(bid);
-    if (!bookId || JSON.stringify(response) === '{}') {
+    if (!bookId || JSON.stringify(response) === '{}' || typeof (bookId) !== 'number') {
         res.send({
             Error: "Error in Patch Request.",
             Message: "Please provide Book ID and other details"
@@ -137,7 +137,7 @@ app.patch('/bookupdate', function (req, res) {
 });
 app["delete"]('/deletebook', function (req, res) {
     var bookId = req.body.BookID;
-    if (!bookId) {
+    if (!bookId || typeof (bookId) !== 'number') {
         res.send({
             Error: "Error in DELETE Request.",
             Message: "Please provide Book ID"

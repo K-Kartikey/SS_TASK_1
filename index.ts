@@ -136,7 +136,7 @@ app.patch('/bookupdate',(req,res)=>{
   // console.log(response);
   // console.log(bid);
 
-  if (!bookId || JSON.stringify(response)==='{}')
+  if (!bookId || JSON.stringify(response)==='{}' || typeof(bookId)!=='number' )
   {
     res.send({
       Error: "Error in Patch Request.",
@@ -172,7 +172,7 @@ app.patch('/bookupdate',(req,res)=>{
 
 app.delete('/deletebook',(req,res)=>{
   const bookId:number=req.body.BookID;
-  if(!bookId)
+  if(!bookId || typeof(bookId)!== 'number')
   {
     res.send({
       Error: "Error in DELETE Request.",
