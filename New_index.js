@@ -35,14 +35,14 @@ var Book = sequelize.define("book", {
         allowNull: true
     }
 });
-// console.log(Book);
-// sequelize
-//  .sync()
-//  .then((result)=>{
-//     console.log(result);
-//  }).catch((err)=>{
-//     console.log(err);
-//  })
+// Creating the table using sequelize
+sequelize
+    .sync()
+    .then(function (result) {
+    console.log(result);
+})["catch"](function (err) {
+    console.log(err);
+});
 //  By default, Sequelize automatically adds the fields createdAt and updatedAt to every model, using the data type DataTypes.DATE. Those fields are automatically managed as well - whenever you use Sequelize to create or update something, those fields will be set correctly. The createdAt field will contain the timestamp representing the moment of creation, and the updatedAt will contain the timestamp of the latest update. ~ Sequelize documentation.
 // Status Check using GET Req.
 app.get('/status', function (req, res) {
