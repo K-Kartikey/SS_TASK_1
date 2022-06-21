@@ -76,16 +76,17 @@ app.post('/bookcreate',(req,res)=>{
         if(!err)
         {
           console.log("Created Book");
-
+          res.send("New Record Added");
         }
         else
         {
           console.log("Error in creating record");
           console.log(err);
+          res.send(err);
         }
       })
       // console.log(BookName,Author,Genre,Ratings);
-      res.send("New Record Added");
+      
   }
 });
 
@@ -113,15 +114,16 @@ app.put('/bookupdate',(req,res)=>{
       if(!err)
       {
         console.log("Updated Book");
-
+        res.send("Updated the Book record.");
       }
       else
       {
         console.log("Error in creating record");
         console.log(err);
+        res.send(err);
       }
     })
-    res.send("Updated the Book record.");
+    
   }
 })
 
@@ -151,15 +153,16 @@ app.patch('/bookupdate',(req,res)=>{
       if(!err)
       {
         console.log("Updated Book");
-
+        res.send("Updated the Book record.");
       }
       else
       {
         console.log("Error in creating record");
         console.log(err);
+        res.send(err);
       }
     })
-    res.send("Updated the Book record.");
+    
   }
 })
 
@@ -187,15 +190,16 @@ app.delete('/deletebook',(req,res)=>{
       if(!err)
       {
         console.log("Deleted Book");
-
+        res.send("Deleted the Book");
       }
       else
       {
         console.log("Error in creating record");
         console.log(err);
+        res.send(err);
       }
     })
-    res.send("Deleted the Book");
+    
   }
 })
 
