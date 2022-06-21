@@ -59,8 +59,9 @@ app.get('/books',(req,res)=>{
 app.post('/bookcreate',(req,res)=>{
   // console.log(req.body);
   const response:object=req.body;
+  
   // console.log(response);
-  if(JSON.stringify(response) === '{}')
+  if(Object.keys(response).length === 0)
   {
     res.send({
       Error: "Error in Post Request.",
@@ -97,7 +98,7 @@ app.put('/bookupdate',(req,res)=>{
   const bookId:number=req.body.BookID;
   // console.log(response);
   // console.log(bid);
-  if (!bookId || JSON.stringify(response)==='{}')
+  if (!bookId || Object.keys(response).length === 0)
   {
     res.send({
       Error: "Error in Put Request.",
@@ -136,7 +137,7 @@ app.patch('/bookupdate',(req,res)=>{
   // console.log(response);
   // console.log(bid);
 
-  if (!bookId || JSON.stringify(response)==='{}' || typeof(bookId)!=='number' )
+  if (!bookId || Object.keys(response).length === 0 || typeof(bookId)!=='number' )
   {
     res.send({
       Error: "Error in Patch Request.",

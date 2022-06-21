@@ -49,8 +49,9 @@ app.get('/books', function (req, res) {
 app.post('/bookcreate', function (req, res) {
     // console.log(req.body);
     var response = req.body;
+    // 
     // console.log(response);
-    if (JSON.stringify(response) === '{}') {
+    if (Object.keys(response).length === 0) {
         res.send({
             Error: "Error in Post Request.",
             Message: "Please provide Book Details"
