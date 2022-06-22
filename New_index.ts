@@ -112,7 +112,7 @@ app.patch('/update/:id',(req,res)=>{
             where: {id:id}
         })
          .then((num)=>{
-            if(+num===1){
+            if(Number(num)===1){
                 res.send("Record updated Sucessfully.")
             }
             else{
@@ -131,7 +131,7 @@ app.delete('/delete/:id',(req,res)=>{
         where: {id:id}
     })
      .then((num)=>{
-        if(+num===1){
+        if(Number(num)===1){
             res.send("Record deleted Sucessfully.")
         }
         else{
