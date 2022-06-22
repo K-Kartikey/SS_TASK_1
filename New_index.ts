@@ -131,7 +131,7 @@ app.delete('/delete/:id',(req,res)=>{
         where: {id:id}
     })
      .then((num)=>{
-        if(Number(num)===1){
+        if(+num===1){
             res.send("Record deleted Sucessfully.")
         }
         else{

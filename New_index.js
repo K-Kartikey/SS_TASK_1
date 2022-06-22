@@ -98,7 +98,7 @@ app.patch('/update/:id', function (req, res) {
             where: { id: id }
         })
             .then(function (num) {
-            if (+num === 1) {
+            if (Number(num) === 1) {
                 res.send("Record updated Sucessfully.");
             }
             else {
