@@ -47,7 +47,11 @@ sequelize
     console.log(result);
  }).catch((err)=>{
     console.log(err);
- })
+});
+
+
+
+
 
 //  By default, Sequelize automatically adds the fields createdAt and updatedAt to every model, using the data type DataTypes.DATE. Those fields are automatically managed as well - whenever you use Sequelize to create or update something, those fields will be set correctly. The createdAt field will contain the timestamp representing the moment of creation, and the updatedAt will contain the timestamp of the latest update. ~ Sequelize documentation.
 
@@ -146,3 +150,8 @@ app.delete('/delete/:id',(req,res)=>{
 app.listen(2000,()=>{
     console.log("The application is listening on port 2000!");
 })
+
+module.exports={
+    app:app,
+    Book:Book
+}
